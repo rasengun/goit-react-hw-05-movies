@@ -18,7 +18,7 @@ const Cast = () => {
     };
 
     fetchCast();
-  }, []);
+  }, [id]);
   console.log(cast);
 
   return (

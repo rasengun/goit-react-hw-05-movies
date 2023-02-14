@@ -18,7 +18,7 @@ const SingleMoviePage = () => {
     };
 
     fetchMovie();
-  }, []);
+  }, [id]);
 
   return (
     <>
