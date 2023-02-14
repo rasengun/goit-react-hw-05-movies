@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Audio } from 'react-loader-spinner';
 
-import { fetchTrending } from 'components/shared/services/api';
+import { getTrendingMovies } from 'components/shared/services/api';
 
 import TrendingMoviesList from 'components/TrendingMoviesList/TrendingMoviesList';
 
@@ -11,10 +11,10 @@ const HomePage = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const getTrendingMovies = async () => {
+    const fetchTrendingMovies = async () => {
       try {
         setLoading(true);
-        const data = await fetchTrending();
+        const data = await getTrendingMovies();
         setItems([...data.results]);
       } catch (error) {
         setError(error.message);
@@ -23,7 +23,7 @@ const HomePage = () => {
       }
     };
 
-    getTrendingMovies();
+    fetchTrendingMovies();
   }, []);
 
   return (
