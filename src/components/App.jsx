@@ -7,6 +7,7 @@ import MoviesPage from './Pages/Movies/Movies';
 import NotFoundPage from './Pages/NotFound/NotFount';
 import SingleMoviePage from './Pages/SingleMoviePage/SingleMoviePage';
 import Cast from './Pages/SingleMoviePage/Cast/Cast';
+import Reviews from './Pages/SingleMoviePage/Reviews/Reviews';
 
 export const App = () => {
   return (
@@ -22,6 +23,15 @@ export const App = () => {
             <>
               <SingleMoviePage />
               <Cast />
+            </>
+          }
+        />
+        <Route
+          path="/movies/:id/reviews"
+          element={
+            <>
+              <SingleMoviePage />
+              <Reviews />
             </>
           }
         />
