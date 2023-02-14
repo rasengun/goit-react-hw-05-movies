@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
 
-const TrendingMoviesList = ({ results }) => {
-  const elements = results.map(({ id, title }) => (
-    <li key={id}>
+import s from './trendingMoviesList.module.css';
+
+const TrendingMoviesList = ({ items }) => {
+  const elements = items.map(({ id, title }) => (
+    <Link className={s.link} to={`/movies/${id}`} key={id}>
       <p>{title}</p>
-    </li>
+    </Link>
   ));
 
   return <ul>{elements}</ul>;

@@ -20,5 +20,6 @@ export const fechMovie = async (page = 1, query = '') => {
       query,
     },
   });
+
   return data.results;
 };

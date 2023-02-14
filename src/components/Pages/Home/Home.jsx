@@ -15,7 +15,7 @@ const HomePage = () => {
       try {
         setLoading(true);
         const data = await fetchTrending();
-        setItems(prevItems => [...prevItems, ...data.results]);
+        setItems([...data.results]);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -29,7 +29,7 @@ const HomePage = () => {
   return (
     <>
       <h1>Trending today</h1>
-      <TrendingMoviesList results={items} />
+      <TrendingMoviesList items={items} />
 
       {loading && (
         <Audio
