@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { getMovieById } from 'components/shared/services/api';
+import { getMovieCredits } from 'components/shared/services/api';
 
 const Cast = () => {
   const { id } = useParams();
@@ -10,7 +10,7 @@ const Cast = () => {
   useEffect(() => {
     const fetchCast = async () => {
       try {
-        const data = await getMovieById(id);
+        const data = await getMovieCredits(id);
         setCast(data);
       } catch ({ response }) {
         console.log(response.data.message);
