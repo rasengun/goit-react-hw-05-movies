@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { getMovieCredits } from 'components/shared/services/api';
+import { getMovieReviews } from 'components/shared/services/api';
 
 const Reviews = () => {
   const { id } = useParams();
@@ -10,8 +10,8 @@ const Reviews = () => {
   useEffect(() => {
     const fetchCast = async () => {
       try {
-        const data = await getMovieCredits(id);
-        setReviews(data);
+        const { results } = await getMovieReviews(id);
+        setReviews(results);
       } catch ({ response }) {
         console.log(response.data.message);
       }
@@ -23,14 +23,19 @@ const Reviews = () => {
 
   return (
     <>
-      <ul>
-        {reviews.map(({ id, author, content }) => (
-          <li id={id}>
-            <p>`{content}`</p>
-            <h3>Author: {author}</h3>
-          </li>
-        ))}
-      </ul>
+      {reviews.length > 0 ? (
+        <ul>
+          {reviews.map(({ id, author, content }) => (
+            <li key={id}>
+              <p>`{content}`</p>
+              <h3>Author: {author}</h3>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>We don't have any reviews for this movie.</p>
+      )}
+      ;
     </>
   );
 };
