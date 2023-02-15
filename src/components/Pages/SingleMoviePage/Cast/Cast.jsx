@@ -27,10 +27,14 @@ const Cast = () => {
         <ul>
           {castMovie.map(({ id, name, profile_path, character }) => (
             <li key={id}>
-              <img
-                src={`https://image.tmdb.org/t/p/w200${profile_path}`}
-                alt="poster"
-              />
+              {profile_path !== null ? (
+                <img
+                  src={`https://image.tmdb.org/t/p/w200${profile_path}`}
+                  alt="poster"
+                />
+              ) : (
+                `No image`
+              )}
               <p>{name}</p>
               <p>{character}</p>
             </li>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Outlet, useParams } from 'react-router-dom';
 
 import { getMovieById } from 'components/shared/services/api';
 
@@ -22,10 +22,14 @@ const SingleMoviePage = () => {
 
   return (
     <>
-      <img
-        alt=""
-        src={`https://image.tmdb.org/t/p/w400${movie?.poster_path}`}
-      />
+      {movie?.poster_path !== undefined ? (
+        <img
+          alt=""
+          src={`https://image.tmdb.org/t/p/w400${movie?.poster_path}`}
+        />
+      ) : (
+        `Movie poster image`
+      )}
       <h1>{movie?.title}</h1>
       <p>User Score: {(movie?.vote_average * 10).toFixed(2)}%</p>
       <h2>Overview</h2>
@@ -33,7 +37,7 @@ const SingleMoviePage = () => {
       <h2>Genres</h2>
       <ul>
         {movie?.genres !== undefined
-          ? movie?.genres.map(({ id, name }) => <li key={id}>{name}</li>)
+          ? movie.genres.map(({ id, name }) => <li key={id}>{name}</li>)
           : `No genres`}
       </ul>
       <p>Additional information</p>
@@ -45,6 +49,7 @@ const SingleMoviePage = () => {
         <li>
           <Link to={`/movies/${id}/reviews`}>Reviews</Link>
         </li>
+        <Outlet />
       </ul>
     </>
   );
