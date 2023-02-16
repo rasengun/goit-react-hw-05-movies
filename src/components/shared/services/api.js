@@ -15,7 +15,7 @@ export const getSearchMovie = async (query = '') => {
     },
   });
 
-  return data.results;
+  return data;
 };
 
 export const getTrendingMovies = async () => {

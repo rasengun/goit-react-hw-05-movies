@@ -19,23 +19,21 @@ const Reviews = () => {
 
     fetchCast();
   }, [id]);
-  console.log(reviews);
+
+  const elements = reviews.map(({ id, author, content }) => (
+    <li key={id}>
+      <h3>Author: {author}</h3>
+      <p>`{content}`</p>
+    </li>
+  ));
 
   return (
     <>
-      {reviews.length > 0 ? (
-        <ul>
-          {reviews.map(({ id, author, content }) => (
-            <li key={id}>
-              <h3>Author: {author}</h3>
-              <p>`{content}`</p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>We don't have any reviews for this movie.</p>
-      )}
-      ;
+      <ul>
+        {elements.length === 0
+          ? "We don't have any reviews for this movie"
+          : elements}
+      </ul>
     </>
   );
 };

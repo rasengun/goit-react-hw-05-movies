@@ -15,9 +15,9 @@ const MoviesPage = () => {
 
     const fetchPosts = async () => {
       try {
-        const data = await getSearchMovie(search);
+        const { results } = await getSearchMovie(search);
 
-        setMovies([...data]);
+        setMovies([...results]);
       } catch (error) {
         console.log(error.message);
       }
@@ -25,16 +25,6 @@ const MoviesPage = () => {
 
     fetchPosts();
   }, [search]);
-
-  // const searchImages = ({ search }) => {
-  //   setQuery(search);
-  //   setMovies([]);
-  //   setPage(1);
-  // };
-
-  // const loadMore = () => {
-  //   setPage(prevPage => prevPage + 1);
-  // };
 
   const handleChange = ({ target }) => {
     const { value } = target;
@@ -62,6 +52,7 @@ const MoviesPage = () => {
         />
         <button type="submit">Search</button>
       </form>
+
       <MoviesList movies={movies} />
     </>
   );
