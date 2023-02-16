@@ -8,8 +8,8 @@ const instance = axios.create({
   },
 });
 
-export const getSearchMovie = async (query = 'avatar') => {
-  const { data } = await instance.get(`/search/movie/`, {
+export const getSearchMovie = async (query = '') => {
+  const { data } = await instance.get(`/search/movie`, {
     params: {
       query,
     },

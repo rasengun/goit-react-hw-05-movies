@@ -2,21 +2,20 @@ import { useState, useEffect } from 'react';
 
 import { getSearchMovie } from 'components/shared/services/api';
 
-// import MoviesList from 'components/MovieList/MovieList';
+import MoviesList from 'components/MovieList/MovieList';
 
 const MoviesPage = () => {
-  // const [search, setSearch] = useState('');
+  const [search, setSearch] = useState('');
   const [movies, setMovies] = useState([]);
-  // const [page, setPage] = useState(1);
 
   useEffect(() => {
-    // if (!search) {
-    //   return;
-    // }
+    if (!search) {
+      return;
+    }
 
     const fetchPosts = async () => {
       try {
-        const data = await getSearchMovie();
+        const data = await getSearchMovie(search);
 
         setMovies([...data]);
       } catch (error) {
@@ -25,11 +24,10 @@ const MoviesPage = () => {
     };
 
     fetchPosts();
-  }, []);
-  console.log(movies);
+  }, [search]);
 
   // const searchImages = ({ search }) => {
-  //   setSearch(search);
+  //   setQuery(search);
   //   setMovies([]);
   //   setPage(1);
   // };
@@ -38,20 +36,20 @@ const MoviesPage = () => {
   //   setPage(prevPage => prevPage + 1);
   // };
 
-  // const handleChange = ({ target }) => {
-  //   const { value } = target;
-  //   setSearch(value.toLowerCase());
-  // };
+  const handleChange = ({ target }) => {
+    const { value } = target;
+    setSearch(value.toLowerCase());
+  };
 
-  // const handleSubmit = e => {
-  //   e.preventDefault();
-  //   setSearch({ search });
-  //   setSearch('');
-  // };
+  const handleSubmit = e => {
+    e.preventDefault();
+    setSearch({ search });
+    setSearch('');
+  };
 
   return (
     <>
-      {/* <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <input
           onChange={handleChange}
           value={search}
@@ -64,7 +62,7 @@ const MoviesPage = () => {
         />
         <button type="submit">Search</button>
       </form>
-      <MoviesList movies={movies} /> */}
+      <MoviesList movies={movies} />
     </>
   );
 };
