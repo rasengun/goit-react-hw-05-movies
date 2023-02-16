@@ -3,7 +3,7 @@ import { Audio } from 'react-loader-spinner';
 
 import { getTrendingMovies } from 'components/shared/services/api';
 
-import TrendingMoviesList from 'components/TrendingMoviesList/TrendingMoviesList';
+import MovieList from 'components/MovieList/MovieList';
 
 const HomePage = () => {
   const [items, setItems] = useState([]);
@@ -29,7 +29,7 @@ const HomePage = () => {
   return (
     <>
       <h1>Trending today</h1>
-      <TrendingMoviesList items={items} />
+      <MovieList movies={items} />
 
       {loading && (
         <Audio

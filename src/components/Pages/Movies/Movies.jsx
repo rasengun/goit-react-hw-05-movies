@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import { getSearchMovie } from 'components/shared/services/api';
 
 import MoviesList from 'components/MovieList/MovieList';
 
 const MoviesPage = () => {
-  const [search, setSearch] = useState('');
   const [movies, setMovies] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const search = searchParams.get('search');
 
   useEffect(() => {
     if (!search) {
@@ -26,23 +28,20 @@ const MoviesPage = () => {
     fetchPosts();
   }, [search]);
 
-  const handleChange = ({ target }) => {
-    const { value } = target;
-    setSearch(value.toLowerCase());
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    setSearch({ search });
-    setSearch('');
-  };
+  const handleSubmit = useCallback(
+    e => {
+      e.preventDefault();
+      const { search } = e.currentTarget.elements;
+      setSearchParams({ search: search.value.toLowerCase() });
+      e.currentTarget.reset();
+    },
+    [setSearchParams]
+  );
 
   return (
     <>
       <form onSubmit={handleSubmit}>
         <input
-          onChange={handleChange}
-          value={search}
           name="search"
           type="text"
           autoComplete="off"

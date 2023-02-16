@@ -1,11 +1,24 @@
 import { useState, useEffect } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import {
+  Link,
+  Outlet,
+  useParams,
+  useNavigate,
+  useLocation,
+} from 'react-router-dom';
 
 import { getMovieById } from 'components/shared/services/api';
+
+import s from './singleMoviePage.module.css';
+import { useCallback } from 'react';
 
 const SingleMoviePage = () => {
   const [movie, setMovie] = useState();
   const { id } = useParams();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || '/';
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -20,12 +33,18 @@ const SingleMoviePage = () => {
     fetchMovie();
   }, [id]);
 
+  const goBack = useCallback(() => navigate(from), [navigate, from]);
+
   return (
     <>
+      <button onClick={goBack} type="button">
+        Go back
+      </button>
       {movie?.poster_path !== undefined ? (
         <img
           alt=""
           src={`https://image.tmdb.org/t/p/w400${movie?.poster_path}`}
+          className={s.wrapper}
         />
       ) : (
         `Movie poster image`
@@ -44,10 +63,14 @@ const SingleMoviePage = () => {
 
       <ul>
         <li>
-          <Link to={`/movies/${id}/cast`}>Cast</Link>
+          <Link state={{ from }} to={`/movies/${id}/cast`}>
+            Cast
+          </Link>
         </li>
         <li>
-          <Link to={`/movies/${id}/reviews`}>Reviews</Link>
+          <Link state={{ from }} to={`/movies/${id}/reviews`}>
+            Reviews
+          </Link>
         </li>
         <Outlet />
       </ul>

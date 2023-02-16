@@ -19,7 +19,7 @@ export const getSearchMovie = async (query = '') => {
 };
 
 export const getTrendingMovies = async () => {
-  const { data } = await instance.get(`/trending/movie/week`);
+  const { data } = await instance.get(`/trending/movie/day`);
   return data;
 };
 
